@@ -52,12 +52,14 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'app',
     'userprofile',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
 )
-
+SITE_ID = 1
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -91,7 +93,7 @@ WSGI_APPLICATION = 'musicApp.wsgi.application'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticatioBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
     )
 
 # Database
