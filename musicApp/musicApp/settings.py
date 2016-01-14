@@ -14,6 +14,12 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_PATH = os.path.join(BASE_DIR,'static/')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [STATIC_PATH,]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -27,7 +33,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#Email Information
+"""
+EMAIL_USE_TLS = "True"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "paulkodez@gmail.com"
+EMAIL_HOST_PASSWORD = "xxx"
+"""
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
 # Application definition
 
 INSTALLED_APPS = (
@@ -38,6 +55,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
+    'allauth',
+    'allauth.account',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -56,7 +75,7 @@ ROOT_URLCONF = 'musicApp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,6 +90,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'musicApp.wsgi.application'
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticatioBackend',
+    )
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -88,7 +111,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -100,4 +123,3 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_URL = '/static/'
