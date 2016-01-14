@@ -1,3 +1,4 @@
 django==1.8.3
 django-allauth
 pillow
+pydub
