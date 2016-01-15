@@ -1,8 +1,35 @@
 #sidePanel{
-	border-right: solid #888888;
+	
 	min-height: 86vh;
 	padding: 5px;
 }
 #mainBody{
 	padding:5px;
+}
+#rightPanel{
+	border-left: solid #888888;
+	padding:10px;
+	min-height: 86vh;
+	margin-bottom: 5vh;
+}
+#formDiv,#listFiles{
+	margin:5px;
+}
+
+@media screen and (max-width: 680px){
+	#sidePanel{
+		display: none;
+	}
+}
+@media screen and (min-width: 681px){
+	#mainLogin{
+		position: relative;
+	}
+	#subLogin{
+		position: absolute;
+		top:20%;
+		left:40%;
+		max-width: 400px;
+
+	}
 }

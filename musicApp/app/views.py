@@ -7,7 +7,14 @@ from .models import AudioFile
 def home(request):
 	if str(request.user) == 'AnonymousUser':
 		return HttpResponseRedirect('/accounts/login/')
+	else:
+		username = request.user
+		userObject = User.objects.get(username=username)
+	userProfileObject = UserProfile.objects.get(userObject = userObject)
+	fileList = AudioFile.objects.filter(fileOwner = userProfileObject)
 	contextDi = {}
+	contextDi['fileList']=fileList
+	contextDi['user'] = userProfileObject
 	return render(request,'musicApp/home.html',contextDi)
 
 def uploadFile(request):
@@ -17,11 +24,12 @@ def uploadFile(request):
 			username = request.user
 			userProfile = UserProfile.objects.get(userObject = User.objects.get(username = username))
 			fileDescription = request.POST['fileDescription']
+			fileTitle = request.POST['fileTitle']
 			uploadedFile = request.FILES['mp3File']
-			fileUploaded = AudioFile.objects.create(fileOwner = userProfile,fileDescription=fileDescription,audioFile = uploadedFile)
+			fileUploaded = AudioFile.objects.create(fileTitle = fileTitle,fileOwner = userProfile,fileDescription=fileDescription,audioFile = uploadedFile)
 			newURL = fileUploaded.audioFile.url[1:]
-			actualFile = AudioSegment.from_mp3(newURL)
-			actualFile.export(newURL,format="mp3",bitrate="128K")
-			print "success"
+			actualFile = AudioSegment.from_file(newURL)
+			newFile = actualFile.export(newURL,format="mp3",bitrate="128K")
+			newFile.close()
 			
 	return HttpResponseRedirect('/app/')
