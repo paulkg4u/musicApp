@@ -110,6 +110,10 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
+
+#Login Data
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/app/'
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Kolkata'
